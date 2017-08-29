@@ -1,5 +1,16 @@
+﻿#include <stdio.h>
 #include "swap.c"
 #include "ordAlg.h"
+
+void printLis(int * list,int size)
+{
+	int i;
+	for(i = 0; i < size; i++) {
+		printf("%i %i\n",i,list[i]);
+	}
+	printf("\n");
+}
+
 void selection(int *list,int size)
 {
     if(size == 1)
@@ -30,3 +41,34 @@ void insertion(int *list, int size)
         }
 }
 
+void merge(int *list,int *aux ,int start,int final, int mid) {
+    
+    int i = start, j = mid + 1, k = 0;
+  
+    while (i <= mid && j <= final) {
+        if (list[i] <= list[j])
+            aux[k++] = list[i++];
+        else
+            aux[k++] = list[j++];
+    }
+    while (i <= mid)
+        aux[k++] = list[i++];
+  
+    while (j <= final)
+        aux[k++] = list[j++];
+  
+    k--;
+    while (k >= 0) {
+        list[start + k] = aux[k];
+        k--;
+    }
+}
+
+void mergeSort(int *list,int *aux, int start, int end) {
+	if(start < end) {
+		int q = (start + end) / 2;
+		mergeSort(list,aux,start,q);
+		mergeSort(list,aux,q+1,end);
+		merge(list,aux,start,end,q);
+	}
+}
