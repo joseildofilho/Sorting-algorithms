@@ -1,4 +1,5 @@
 ﻿#include <stdio.h>
+#include <stdlib.h>
 #include "swap.c"
 #include "ordAlg.h"
 
@@ -64,7 +65,8 @@ void merge(int *list,int *aux ,int start,int final, int mid) {
     }
 }
 
-void mergeSort(int *list,int *aux, int start, int end) {
+void mergeSort(int *list,int *aux, int start, int end) 
+{
 	if(start < end) {
 		int q = (start + end) / 2;
 		mergeSort(list,aux,start,q);
@@ -72,3 +74,29 @@ void mergeSort(int *list,int *aux, int start, int end) {
 		merge(list,aux,start,end,q);
 	}
 }
+
+int partition(int *list, int start, int end) 
+{			
+	int i,
+	pivot = list[end],
+	j = start - 1;	
+	for(i = start;i < end;i ++) {
+		if(list[i] < pivot) {
+			j++;
+			swap(&list[i],&list[j]);
+		}	
+	}
+	swap(&list[end],&list[j+1]);
+	return j+1;
+}
+
+void quickSort(int *list, int start, int end) 
+{
+	if(start < end) {
+		int q = partition(list,start,end);
+		quickSort(list,start,q-1);
+		quickSort(list,q+1,end);
+
+	}
+}
+
