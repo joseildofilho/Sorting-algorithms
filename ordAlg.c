@@ -1,6 +1,6 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
-#include "swap.c"
+#include "swap.h"
 #include "ordAlg.h"
 
 void printLis(int * list,int size)

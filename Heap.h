@@ -5,6 +5,9 @@ typedef struct Heap {
 	int size,* heap, count;
 	Type t;
 } Heap;
-extern Heap makeHeap(int size,Type t);
-extern void insert(Heap h, int value);
+Heap * makeHeap(int size,Type t);
+void insert(Heap * h, int value);
+void insertList(Heap *h,int * list, int size);
+int getMax(Heap * h);
+int * heapSort(Heap * h);
 #endif
