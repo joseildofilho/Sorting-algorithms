@@ -12,64 +12,78 @@ void printList(int * list,int size)
 	printf("\n");
 }
 
+void mem(int * src, int *target,int size)
+{
+	int i;
+	for(i = 0; i < size; i++) {
+		target[i] = src[i];
+	}
+}
+
 int main(void)
 {
 
-	int i, size = 7,* lista,* lista2 ,* lista3 ,* aux ,* lista4 ,* lista5, sizeList = sizeof(int)*size;
+	int i, size = 7,* lista,* listaS ,* aux, sizeList = sizeof(int)*size;
 
 	lista = malloc(sizeList);
-	lista2 = malloc(sizeList);
-	lista3 = malloc(sizeList);
-	lista4 = malloc(sizeList);
-	lista5 = malloc(sizeList);
+	listaS = malloc(sizeList);
 	aux = malloc(sizeList);
 
 	for(i = size; i > 0; i--) {
-        	lista[size-i] = rand() % 1000;
+        	listaS[size-i] = rand() % 10;
 		//lista[5-1] = i;
 	}
-	for(i = 0; i < size; i++) {
-		lista2[i] = lista[i];
-	}
-	for(i = 0; i < size; i++) {
-		lista3[i] = lista[i];
-	} 
-	for(i = 0; i < size; i++) {
-		lista4[i] = lista[i];	
-	}
-	for(i = 0; i < size; i++) {
-		lista5[i] = lista[i];
-	}
+
+	mem(listaS,lista,size);
+
 	printf("Insertion\n");
 	printList(lista,size);
 	insertion(lista,size);
 	printList(lista,size);
 
+	mem(listaS,lista,size);
+
 	printf("selection\n");
-	printList(lista2,size);	
-	selection(lista2,size);
-	printList(lista2,size);
+	printList(lista,size);	
+	selection(lista,size);
+	printList(lista,size);
+
+	mem(listaS,lista,size);
 
 	printf("merge\n");
-	printList(lista3,size);
-	mergeSort(lista3,aux,0,size-1);
-	printList(lista3,size);
+	printList(lista,size);
+	mergeSort(lista,aux,0,size-1);
+	printList(lista,size);
+
+	mem(listaS,lista,size);
 
 	printf("quick\n");
-	printList(lista4,size);
-	quickSort(lista4,0,size-1);
-	printList(lista4,size);
+	printList(lista,size);
+	quickSort(lista,0,size-1);
+	printList(lista,size);
+
+	mem(listaS,lista,size);
 
 	printf("heap\n");
-	printList(lista5,size);
+	printList(lista,size);
 	Heap * h = makeHeap(2,MAX);
-	insertList(h,lista5,size);
+	insertList(h,lista,size);
 	printList(h->heap,h->size);
 	int * x = malloc(sizeof(int)*h->size);
 	x = heapSort(h);
 	printf("heap sort começa aqui\n");
 	printList(x,h->size);
 
-
+	
+	mem(listaS,lista,size);
+	
+	printf("count\n");
+	printList(lista,size);
+	count(&lista,size);
+	printList(lista,size);
+	printf("end");
+	free(lista);
+	free(listaS);
+	free(aux);	
 	return 0;
 }

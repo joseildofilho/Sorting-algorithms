@@ -103,36 +103,40 @@ void quickSort(int *list, int start, int end)
 int max(int *list, int size) 
 {
 	int m = list[0], i;
-	for(i = 0; i < size;i ++) {
+	for(i = 1; i < size;i ++) {
 		if(list[i] > m)
 			m = list[i];
 	}
 	return m;
 }
 //doens't work for negative number's
-void count(int * list, int size) 
+void count(int ** listP, int size) 
 {	//select de value max of array
-	int i,k,
+
+	int i,k, * list = *listP,
 	maxValue = max(list,size);
-	//array's suport
+	maxValue += 1;
+	//array's sport
 	int * aux = malloc(maxValue*sizeof(int)),
 		* auxOrd = malloc(size*sizeof(int));
-	
+			
 	for(i = 0; i < size; i++) {
 		aux[list[i]] += 1;
 	}
-
 	for(i = 0; i < maxValue - 1; i++) {
 		aux[i+1] = aux[i] + aux[i+1];
 	} 
 
-	for(i = size; i > 0; --i) {
+	for(i = size-1; i > -1; i--) {
 		k = list[i];
-		aux[k]--;
+		aux[k]-=1;
 		auxOrd[aux[k]] = k;
 	}
-	free(list);
-	list = aux;
-	free(auxOrd);
+	printLis(auxOrd,size);
+	free(*listP);
+	free(*list);
+	*listP = auxOrd;
 
+//	free(auxOrd);
+	free(aux);
 }
