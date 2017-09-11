@@ -50,7 +50,6 @@ void maxHeapify(Heap * h, int p)
 void printListh(Heap * h) {
 	int i;
 	for(i = 0; i < h->size; i++) {
-		printf("%i\n",h->heap[i]);
 	}
 }
 int getMax(Heap * h) {
@@ -59,8 +58,11 @@ int getMax(Heap * h) {
 	h->heap[1] = 0;
 	swap(&h->heap[1],&h->heap[h->count]);
 	h->count--;
-
+	while(j <= h->count){
+		if(h->heap[j] < h->heap[j+1]) j++;
+		else if(h->heap[j] < h->heap[i]) break;		
 		swap(&h->heap[i],&h->heap[j]);
+		printListh(h);
 		i = j;
 		j = 2 * j;
 	}
