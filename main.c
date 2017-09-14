@@ -23,14 +23,14 @@ void mem(int * src, int *target,int size)
 int main(void)
 {
 
-	int i, size = 7,* lista,* listaS ,* aux, sizeList = sizeof(int)*size;
+	int i, size = 10,* lista,* listaS ,* aux, sizeList = sizeof(int)*size;
 
 	lista = malloc(sizeList);
 	listaS = malloc(sizeList);
 	aux = malloc(sizeList);
 
 	for(i = size; i > 0; i--) {
-        	listaS[size-i] = rand() % 10;
+        	listaS[size-i] = rand() % 1000;
 		//lista[5-1] = i;
 	}
 
@@ -81,7 +81,15 @@ int main(void)
 	printList(lista,size);
 	count(&lista,size);
 	printList(lista,size);
-	printf("end");
+	printf("end\n");
+
+	mem(listaS,lista,size);
+
+	printf("radix\n");
+	printList(lista,size);
+	radix(&lista,size);
+	printList(lista,size);
+
 	free(lista);
 	free(listaS);
 	free(aux);	

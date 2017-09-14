@@ -132,11 +132,37 @@ void count(int ** listP, int size)
 		aux[k]-=1;
 		auxOrd[aux[k]] = k;
 	}
-	printLis(auxOrd,size);
 	free(*listP);
 	free(*list);
 	*listP = auxOrd;
 
 //	free(auxOrd);
 	free(aux);
+}
+void bucket(int ** list, int size) 
+{
+	printf("Not Implemented");
+}
+void radix(int ** listP, int size) 
+{
+	int * aux, *list = *listP, *out, m, i, j, k;
+	aux = malloc(sizeof(int)*10);
+	
+	out = malloc(sizeof(int)*size);
+	m = max(list,size);
+	for(i = 1; i < m; i*= 10) {
+		memset(aux,0,sizeof(int)*10);
+		for(j = 0; j < size; j++)
+			aux[((list[j] % (i*10))/ i)] += 1;
+		for(j = 1; j < 10; j++)
+			aux[j] += aux[j-1];
+		for(j = size-1; j > -1; j--) {
+			k = ((list[j] % (i*10))/ i);
+			aux[k]--;
+			out[aux[k]] = list[j];
+		}
+		for(j = 0; j < size; j++)
+			list[j] = out[j];
+	}
+	*listP = list;
 }
